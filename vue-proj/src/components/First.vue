@@ -1,7 +1,11 @@
 <template>
   <div class="hello">
    This is simple 
-   <div v-bind:class="{class_name_alert: var_in_data, 'another_class': !another_var}"></div>
+   <!-- class binding -->
+   <!-- <div v-bind:class="{class_name_alert: var_in_data, 'another_class': !another_var}"></div> -->
+
+   <!-- object binding -->
+   <div v-bind:class="objectBind"></div>
   </div>
 </template>
 
@@ -10,8 +14,14 @@ export default {
   name: 'First',
   data(){
     return {
-      var_in_data: true,
-      another_var: true
+      // class binding use below
+      // var_in_data: true,
+      // another_var: true
+
+      // object binding
+      objectBind: {
+        class_name_alert: true,
+      }
 
     }
   }
