@@ -19,14 +19,18 @@
         <!-- using library animations -->
         <transition name="alert-in" enter-active-class="animated flipInx" leave-active-class="animated flipOutX">
           <!-- transition works with v-if v-show and components root -->
-          <p class="alert" v-if="errors.has('skill')">{{ errors.first('skill')}}</p>
+          <p class="alert" v-if="errors.has('skill')">{{ errors.first('skill')}}
+          </p>
         </transition>
 
       </form>
 
       <ul>
+         <!-- using library animations -->
          <transition-group name="alert-in" enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutDown">
-          <li v-for="(data, index) in skills" :key="index">{{data.skill}}</li>
+          <li v-for="(data, index) in skills" :key="index">{{data.skill}}
+            <i class="fa fa-minus-circle" v-on:click="remove(index)"></i>
+          </li>
          </transition-group>
       </ul>
     </div>
@@ -66,6 +70,9 @@ export default {
           console.log("Not Valid");
         }
       });
+    },
+      remove(id) {
+      this.skills.splice(id,1);
     }
   }
 };
