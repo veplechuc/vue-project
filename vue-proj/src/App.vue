@@ -1,23 +1,28 @@
 <template>
   <div id="app">
-   
-    <First />
+    <nav>
+      <router-link to="/">Home</router-link>
+      <router-link to="/about">About</router-link>
+    </nav>
+    <router-view></router-view>
+
+    
   </div>
 </template>
 
 <script>
-import First from './components/First.vue'
+import First from "./components/First.vue";
 
 export default {
-  name: 'app',
+  name: "app",
   components: {
     First
   }
-}
+};
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,700");
 body {
   background-color: #EEEEEE;
   font-family: 'Montserrat', sans-serif;
@@ -33,5 +38,16 @@ body, html {
 #app {
     width: 50%;
 }
-
+nav {
+  padding: 20px 20px 20px 0;
+}
+nav a {
+  padding: 10px;
+  text-decoration: none;
+  background: #fff;
+  border-radius: 3px;
+  color: rgb(0, 110, 255);
+  font-weight: bold;
+  margin-right: 15px;
+}
 </style>

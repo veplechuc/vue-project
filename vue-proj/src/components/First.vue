@@ -10,11 +10,28 @@
           v-validate="'min:5'"
           name="skill"
         >
-        <p class="alert" v-if="errors.has('skill')">{{ errors.first('skill')}}</p>
+          <!-- not using 3er party library -->
+        <!-- <transition name="alert-in">
+           transition works with v-if v-show and components root -->
+          <!-- <p class="alert" v-if="errors.has('skill')">{{ errors.first('skill')}}</p> -->
+        <!-- </transition> -->
+
+        <!-- using library animations -->
+        <transition name="alert-in" enter-active-class="animated flipInx" leave-active-class="animated flipOutX">
+          <!-- transition works with v-if v-show and components root -->
+          <p class="alert" v-if="errors.has('skill')">{{ errors.first('skill')}}
+          </p>
+        </transition>
+
       </form>
 
       <ul>
-        <li v-for="(data, index) in skills" :key="index">{{data.skill}}</li>
+         <!-- using library animations -->
+         <transition-group name="alert-in" enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutDown">
+          <li v-for="(data, index) in skills" :key="index">{{data.skill}}
+            <i class="fa fa-minus-circle" v-on:click="remove(index)"></i>
+          </li>
+         </transition-group>
       </ul>
     </div>
     <!-- class binding -->
@@ -22,7 +39,7 @@
 
     <!-- object binding -->
     <div v-bind:class="objectBind"></div>
-     <p>These are the skills that you possess.</p>
+    <p>These are the skills that you possess.</p>
   </div>
 </template>
 
@@ -41,13 +58,11 @@ export default {
       objectBind: {
         class_name_alert: true
       }
-
-      
     };
   },
   methods: {
     addSkill() {
-      this.$validator.validateAll().then((result) => {
+      this.$validator.validateAll().then(result => {
         if (result) {
           this.skills.push({ skill: this.skill });
           this.skill = "";
@@ -55,6 +70,9 @@ export default {
           console.log("Not Valid");
         }
       });
+    },
+      remove(id) {
+      this.skills.splice(id,1);
     }
   }
 };
@@ -62,7 +80,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style  scoped>
+/* added fro animation */
 @import "https://cdn.jsdelivr.net/npm/animate.css@3.5.1";
+
 @import "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
 .holder {
   background: #fff;
@@ -109,5 +129,20 @@ input {
 }
 .alert-in-leave-active {
   animation: bounce-in 0.5s reverse;
+}
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+i {
+  float: right;
+  cursor: pointer;
 }
 </style>
